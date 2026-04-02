@@ -2,6 +2,7 @@ from typing import Sequence
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from profile_service.models import ProfileModel
 
 
@@ -49,12 +50,3 @@ async def update_profile(
     await session.flush()
     await session.refresh(profile)
     return profile
-
-
-async def delete_profile(
-        profile: ProfileModel,
-        session: AsyncSession,
-) -> None:
-    await session.delete(profile)
-    await session.flush()
-    return None

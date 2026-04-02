@@ -2,7 +2,7 @@ from sqlalchemy import String, Integer, Text, Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .BaseModel import BaseModel
-from profile_service.enums import SexAllowed, StatusAllowed
+from profile_service.core import SexAllowed, StatusAllowed
 
 class ProfileModel(BaseModel):
     __tablename__ = "profiles"
@@ -15,7 +15,7 @@ class ProfileModel(BaseModel):
     city: Mapped[str] = mapped_column(String(100), nullable=False)
     sex: Mapped[SexAllowed] = mapped_column(String(20), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    status: Mapped[StatusAllowed] = mapped_column(String(20), nullable=False)
+    status: Mapped[StatusAllowed] = mapped_column(String(20), default=StatusAllowed.active, nullable=False)
 
     photos: Mapped[list["PhotoModel"]] = relationship(
         "PhotoModel",
